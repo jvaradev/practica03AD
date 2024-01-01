@@ -51,10 +51,6 @@ public class Film {
     private Timestamp lastUpdate;
 
     @ManyToOne
-    @JoinColumn(name = "language_id")
-    private Language originalLanguage;
-
-    @ManyToOne
     @JoinColumn(name = "language_id", insertable = false, updatable = false)
     private Language language;
 
@@ -71,6 +67,21 @@ public class Film {
     @ManyToOne
     @JoinColumn(name = "original_language_id", referencedColumnName = "language_id", insertable = false, updatable = false)
     private Language languageByOriginalLanguageId;
+    @ManyToMany
+    @JoinTable(
+            name = "film_category",
+            joinColumns = @JoinColumn(name = "film_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
+    private Set<Category> categories;
+    @ManyToOne
+    @JoinColumn(name = "original_language_id", referencedColumnName = "language_id", insertable = false, updatable = false)
+    private Language originalLanguage;
+    public Set<Category> getCategories() {
+        return categories;
+    }
+    public Language getOriginalLanguage() {
+        return originalLanguage;
+    }
 
     public Short getFilmId() {
         return filmId;

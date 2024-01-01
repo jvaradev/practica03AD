@@ -78,7 +78,6 @@ public class InformeCliente {
                     int idAddressStore = store.getAddressId();
                     Address address = entityManager.find(Address.class, idAddressStore);
                     System.out.println("Tienda asociada: " + address.toString());
-                    // Puedes agregar más detalles de la tienda según sea necesario
                 } else {
                     System.out.println("El cliente no está asociado a ninguna tienda.");
                 }
@@ -126,7 +125,6 @@ public class InformeCliente {
                     for (Payment payment : payments) {
                         System.out.println("Fecha del pago: " + payment.getPaymentDate());
                         System.out.println("Cantidad pagada: " + payment.getAmount());
-                        // Agrega más detalles según sea necesario
                     }
                 } else {
                     System.out.println("El cliente no ha realizado pagos.");
