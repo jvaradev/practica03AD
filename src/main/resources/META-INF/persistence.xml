@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+             version="3.0">
+  <persistence-unit name="SAKILA_PERSISTENCE_UNIT">
+    <class>org.example.entities.Actor</class>
+    <class>org.example.entities.Address</class>
+    <class>org.example.entities.Category</class>
+    <class>org.example.entities.City</class>
+    <class>org.example.entities.Country</class>
+    <class>org.example.entities.Customer</class>
+    <class>org.example.entities.Film</class>
+    <class>org.example.entities.Inventory</class>
+    <class>org.example.entities.Language</class>
+    <class>org.example.entities.Payment</class>
+    <class>org.example.entities.Rental</class>
+    <class>org.example.entities.Staff</class>
+    <class>org.example.entities.Store</class>
+
+    <properties>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect" />
+      <property name="toplink.jdbc.url" value="jdbc:mysql://localhost:3306/sakila"/>
+      <property name="toplink.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="toplink.jdbc.user" value="root"/>
+      <property name="toplink.jdbc.password" value="password"/>
+      <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/sakila"/>
+      <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="hibernate.connection.username" value="root"/>
+      <property name="hibernate.connection.password" value="password"/>
+      <property name="openjpa.ConnectionURL" value="jdbc:mysql://localhost:3306/sakila"/>
+      <property name="openjpa.ConnectionDriverName" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="openjpa.ConnectionUserName" value="root"/>
+      <property name="openjpa.ConnectionPassword" value="password"/>
+      <property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/sakila"/>
+      <property name="eclipselink.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="eclipselink.jdbc.user" value="root"/>
+      <property name="eclipselink.jdbc.password" value="password"/>
+    </properties>
+  </persistence-unit>
+</persistence>
