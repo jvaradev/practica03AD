@@ -66,6 +66,13 @@ public class Staff {
 
     @OneToMany(mappedBy = "staff")
     private Collection<Rental> rentals;
+    public String getAddress() {
+        if (addressByAddressId != null) {
+            return addressByAddressId.getAddress();
+        } else {
+            return "N/A";
+        }
+    }
 
     public Byte getStaffId() {
         return staffId;

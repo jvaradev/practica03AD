@@ -54,12 +54,6 @@ public class Film {
     @JoinColumn(name = "language_id", insertable = false, updatable = false)
     private Language language;
 
-    @ManyToMany
-    @JoinTable(
-            name = "film_actor",
-            joinColumns = @JoinColumn(name = "film_id"),
-            inverseJoinColumns = @JoinColumn(name = "actor_id"))
-    private Set<Actor> actors;
     @ManyToOne
     @JoinColumn(name = "language_id", referencedColumnName = "language_id", nullable = false, insertable = false, updatable = false)
     private Language languageByLanguageId;
@@ -76,6 +70,20 @@ public class Film {
     @ManyToOne
     @JoinColumn(name = "original_language_id", referencedColumnName = "language_id", insertable = false, updatable = false)
     private Language originalLanguage;
+    @ManyToMany
+    @JoinTable(
+            name = "film_actor",
+            joinColumns = @JoinColumn(name = "film_id"),
+            inverseJoinColumns = @JoinColumn(name = "actor_id"))
+    private Set<Actor> actors;
+    @OneToMany(mappedBy = "film")
+    private Set<Inventory> inventories;
+    public Set<Inventory> getInventories() {
+        return inventories;
+    }
+    public Set<Actor> getActors() {
+        return actors;
+    }
     public Set<Category> getCategories() {
         return categories;
     }

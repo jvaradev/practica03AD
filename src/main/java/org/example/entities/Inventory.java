@@ -40,6 +40,9 @@ public class Inventory {
     @OneToMany(mappedBy = "inventoryByInventoryId")
     private Collection<Rental> rentals;
 
+    public Film getFilm() {
+        return film;
+    }
     public Object getInventoryId() {
         return inventoryId;
     }

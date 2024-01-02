@@ -6,16 +6,17 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import org.example.entities.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.Set;
+import java.sql.*;
+import java.util.*;
 
 public class InformeFilm {
 
     private static final EntityManagerFactory entityManagerFactory =
             Persistence.createEntityManagerFactory("SAKILA_PERSISTENCE_UNIT");
-
+    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/sakila";
+    private static final String USER = "root";
+    private static final String PASSWORD = "password";
+    private static final String COUNT_INVENTORY = "SELECT COUNT(*) AS inventory_count FROM inventory WHERE film_id = ? and store_id=?";
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -29,8 +30,9 @@ public class InformeFilm {
                 showFilmDetail(idFilm);
                 showCategory(idFilm);
                 showLanguageOriginal(idFilm);
+                showFilmActor(idFilm);
+                showFilmInventory(idFilm);
                 //idioma original = idioma pelicula?
-                //falta actores,copias disponibles
             }
         } while (idFilm != 0);
     }
@@ -53,7 +55,6 @@ public class InformeFilm {
                 System.out.println("Clasificación: " + film.getRating());
                 System.out.println("Características especiales: " + film.getSpecialFeatures());
                 System.out.println("Última actualización: " + film.getLastUpdate());
-
             } else {
                 System.out.println("No se encontró una película con el ID proporcionado.");
             }
@@ -102,7 +103,7 @@ public class InformeFilm {
         try {
             transaction.begin();
             Film film = entityManager.find(Film.class, (short) idFilm);
-            int idLanguage=film.getLanguageId();
+            int idLanguage = film.getLanguageId();
 
             if (film != null) {
                 Language originalLanguage = entityManager.find(Language.class, (short) idLanguage);
@@ -124,6 +125,98 @@ public class InformeFilm {
         }
     }
 
+    public static void showFilmActor(int idFilm) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
 
+        try {
+            transaction.begin();
+            Film film = entityManager.find(Film.class, (short) idFilm);
 
+            if (film != null) {
+                Set<Actor> actors = film.getActors();
+                if (actors != null && !actors.isEmpty()) {
+                    System.out.println("-----ACTORES EN LA PELÍCULA-----");
+                    for (Actor actor : actors) {
+                        System.out.println("Actor: " + actor.getFirstName() + " " + actor.getLastName());
+                    }
+                } else {
+                    System.out.println("La película no tiene actores asociados.");
+                }
+            } else {
+                System.out.println("No se encontró una película con el ID proporcionado.");
+            }
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+        }
+    }
+
+    public static void showFilmInventory(int idFilm) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        try {
+            transaction.begin();
+            Film film = entityManager.find(Film.class, (short) idFilm);
+
+            if (film != null) {
+                Set<Inventory> inventories = film.getInventories();
+                if (inventories != null && !inventories.isEmpty()) {
+                    System.out.println("-----INVENTARIO DE LA PELÍCULA-----");
+
+                    Map<Short, Integer> totalAvailableDVDsByStore = new HashMap<>();
+
+                    for (Inventory inventory : inventories) {
+                        int idTienda = inventory.getStoreId();
+
+                        totalAvailableDVDsByStore.put((short) idTienda,
+                                totalAvailableDVDsByStore.getOrDefault((short) idTienda, getInventoryCountForFilm(idFilm,idTienda)));
+                    }
+
+                    for (Map.Entry<Short, Integer> entry : totalAvailableDVDsByStore.entrySet()) {
+                        Short idTienda = entry.getKey();
+                        Integer totalAvailableDVDs = entry.getValue();
+
+                        Store store = entityManager.find(Store.class, idTienda);
+                        System.out.println("Tienda: " + idTienda);
+                        System.out.println("Dirección: " + store.getAddressByAddressId());
+                        System.out.println("Cantidad de inventario: " + totalAvailableDVDs);
+                        System.out.println("--------");
+                    }
+                } else {
+                    System.out.println("La película no tiene inventario asociado.");
+                }
+            } else {
+                System.out.println("No se encontró una película con el ID proporcionado.");
+            }
+        } finally {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            entityManager.close();
+        }
+    }
+
+    public static int getInventoryCountForFilm(int filmId, int storeId) {
+        int inventoryCount = 0;
+
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USER, PASSWORD)) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(COUNT_INVENTORY)) {
+                preparedStatement.setInt(1, filmId);
+                preparedStatement.setInt(2, storeId);
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    if (resultSet.next()) {
+                        inventoryCount = resultSet.getInt(1);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return inventoryCount;
+    }
 }
