@@ -1,9 +1,6 @@
 package org.example.informes;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.*;
 import org.example.entities.*;
 
 import java.sql.*;
@@ -96,6 +93,7 @@ public class InformeFilm {
         }
     }
 
+
     public static void showLanguageOriginal(int idFilm) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -173,7 +171,7 @@ public class InformeFilm {
                         int idTienda = inventory.getStoreId();
 
                         totalAvailableDVDsByStore.put((short) idTienda,
-                                totalAvailableDVDsByStore.getOrDefault((short) idTienda, getInventoryCountForFilm(idFilm,idTienda)));
+                                totalAvailableDVDsByStore.getOrDefault((short) idTienda, getInventoryCountForFilm(entityManager, idFilm, idTienda)));
                     }
 
                     for (Map.Entry<Short, Integer> entry : totalAvailableDVDsByStore.entrySet()) {
@@ -200,23 +198,22 @@ public class InformeFilm {
         }
     }
 
-    public static int getInventoryCountForFilm(int filmId, int storeId) {
-        int inventoryCount = 0;
+        public static int getInventoryCountForFilm (EntityManager entityManager,int filmId, int storeId){
+            int inventoryCount = 0;
 
-        try (Connection connection = DriverManager.getConnection(JDBC_URL, USER, PASSWORD)) {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(COUNT_INVENTORY)) {
-                preparedStatement.setInt(1, filmId);
-                preparedStatement.setInt(2, storeId);
-                try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                    if (resultSet.next()) {
-                        inventoryCount = resultSet.getInt(1);
-                    }
-                }
+            try {
+                Query query = entityManager.createNativeQuery(COUNT_INVENTORY);
+                query.setParameter(1, filmId);
+                query.setParameter(2, storeId);
+
+                Number result = (Number) query.getSingleResult();
+                inventoryCount = result.intValue();
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
-        return inventoryCount;
-    }
+            return inventoryCount;
+        }
 }
+

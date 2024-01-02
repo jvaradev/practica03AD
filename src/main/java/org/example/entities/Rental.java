@@ -27,7 +27,7 @@ public class Rental {
     private Timestamp returnDate;
     @Basic
     @Column(name = "staff_id", insertable = false, updatable = false)
-    private Byte staffId;
+    private Integer staffId;
     @Basic
     @Column(name = "last_update")
     private Timestamp lastUpdate;
@@ -99,11 +99,11 @@ public class Rental {
         this.returnDate = returnDate;
     }
 
-    public Byte getStaffId() {
+    public Integer getStaffId() {
         return staffId;
     }
 
-    public void setStaffId(Byte staffId) {
+    public void setStaffId(Integer staffId) {
         this.staffId = staffId;
     }
 

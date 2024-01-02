@@ -78,6 +78,7 @@ public class Film {
     private Set<Actor> actors;
     @OneToMany(mappedBy = "film")
     private Set<Inventory> inventories;
+
     public Set<Inventory> getInventories() {
         return inventories;
     }
@@ -87,6 +88,7 @@ public class Film {
     public Set<Category> getCategories() {
         return categories;
     }
+
     public Language getOriginalLanguage() {
         return originalLanguage;
     }
