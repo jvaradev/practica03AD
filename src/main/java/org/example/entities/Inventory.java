@@ -39,15 +39,16 @@ public class Inventory {
 
     @OneToMany(mappedBy = "inventoryByInventoryId")
     private Collection<Rental> rentals;
-    public int getCantidadDisponible() {
-        return (int) rentals.stream().filter(rental -> rental.getReturnDate() == null).count();
+
+    public Collection<Rental> getRentals() {
+        return rentals;
     }
 
     public Film getFilm() {
         return film;
     }
     public Object getInventoryId() {
-        return inventoryId;
+        return this.inventoryId;
     }
 
     public void setInventoryId(Object inventoryId) {

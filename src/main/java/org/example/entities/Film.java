@@ -1,7 +1,6 @@
 package org.example.entities;
 
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Set;
@@ -82,9 +81,11 @@ public class Film {
     public Set<Inventory> getInventories() {
         return inventories;
     }
+
     public Set<Actor> getActors() {
         return actors;
     }
+
     public Set<Category> getCategories() {
         return categories;
     }
@@ -195,6 +196,17 @@ public class Film {
 
     public void setLastUpdate(Timestamp lastUpdate) {
         this.lastUpdate = lastUpdate;
+    }
+
+    public Integer getInventoryId() {
+        // Este método asume que hay una relación One-to-One entre Film e Inventory
+        // Ajusta esto según tu modelo de datos real
+        if (inventories != null && !inventories.isEmpty()) {
+            // Devuelve el inventoryId de la primera relación, puedes ajustar esto según tus necesidades
+            return (Integer) inventories.iterator().next().getInventoryId();
+        } else {
+            return null; // O lanza una excepción si no hay inventarios asociados al film
+        }
     }
 
     @Override

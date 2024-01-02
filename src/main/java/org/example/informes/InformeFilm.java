@@ -10,9 +10,6 @@ public class InformeFilm {
 
     private static final EntityManagerFactory entityManagerFactory =
             Persistence.createEntityManagerFactory("SAKILA_PERSISTENCE_UNIT");
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/sakila";
-    private static final String USER = "root";
-    private static final String PASSWORD = "password";
     private static final String COUNT_INVENTORY = "SELECT COUNT(*) AS inventory_count FROM inventory WHERE film_id = ? and store_id=?";
     private static final Scanner scanner = new Scanner(System.in);
 

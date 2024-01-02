@@ -6,14 +6,12 @@ import org.example.entities.Staff;
 import org.example.entities.*;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class InformeRental {
     private static final EntityManagerFactory entityManagerFactory =
             Persistence.createEntityManagerFactory("SAKILA_PERSISTENCE_UNIT");
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/sakila";
-    private static final String USER = "root";
-    private static final String PASSWORD = "password";
     private static final String COUNT_INVENTORY = "SELECT COUNT(*) AS inventory_count FROM inventory WHERE film_id = ? and store_id=?";
 
     public static void main(String[] args) {
@@ -42,11 +40,11 @@ public class InformeRental {
                 return;
             }
             System.out.println(getTiendaDelEmpleado(staffId));
-            System.out.println(existeEnInventario(getTiendaDelEmpleado(staffId),filmId));
+            System.out.println(existInventoryCountForFilm(entityManager,filmId,getTiendaDelEmpleado(staffId)));
             System.out.println(existeClienteTienda(getTiendaDelEmpleado(staffId),customerId));
-            System.out.println(getInventoryCountForFilm(filmId,getTiendaDelEmpleado(staffId)));
+
             //System.out.println(hayCopiasDisponibles(getTiendaDelEmpleado(staffId),filmId));
-            crearNuevoAlquiler(entityManager,staffId,filmId,customerId);
+            realizarAlquiler(entityManager,staffId,filmId,customerId);
         } finally {
             // Cerrar el EntityManager al finalizar
             entityManager.close();
@@ -58,27 +56,6 @@ public class InformeRental {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         Staff staff = entityManager.find(Staff.class, (short) staffId);
         return staff.getStoreId();
-    }
-
-    private static boolean existeEnInventario(int tiendaId, int filmId) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        Store store = entityManager.find(Store.class, tiendaId);
-        Film film = entityManager.find(Film.class, filmId);
-
-        if (store == null || film == null) {
-            System.out.println("Error: La tienda o la película no existen.");
-            return false;
-        }
-
-        Collection<Inventory> inventories =store.getInventoriesByStoreId();
-
-        for (Inventory inventory : inventories) {
-            if (inventory.getFilm().equals(film)) {
-                return true;
-            }
-        }
-
-        return false;
     }
     private static boolean existeClienteTienda(int tiendaId, int customerId) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -102,67 +79,53 @@ public class InformeRental {
         return false;
     }
 
-    /*no funciona
-    private static int hayCopiasDisponibles(int tiendaId, int peliculaId) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        // Buscar la tienda, la película y el inventario
-        Store tienda = entityManager.find(Store.class, tiendaId);
-        Film pelicula = entityManager.find(Film.class, peliculaId);
-        Inventory inventory = entityManager.find(Inventory.class, peliculaId);
+    private static void realizarAlquiler(EntityManager em, int empleadoId, int peliculaId, int clienteId) {
+        Customer customer = em.find(Customer.class, (short) clienteId);
+        Staff staff = em.find(Staff.class, (short) empleadoId);
+        Inventory inventory = em.find(Inventory.class, peliculaId);
+        Film film = em.find(Film.class, peliculaId);
 
-        return inventory.getStoreId();
-    }*/
+        // Crear un nuevo alquiler (rental)
+        Rental nuevoAlquiler = new Rental();
+        nuevoAlquiler.setRentalDate(Timestamp.valueOf(LocalDateTime.now()));
+        nuevoAlquiler.setInventoryByInventoryId(inventory); // Asignar el inventario directamente
+        nuevoAlquiler.setCustomerId((short) clienteId);
+        nuevoAlquiler.setStaff(staff);
 
-    private static void crearNuevoAlquiler(EntityManager entityManager,int staffId, int filmId, int customerId) {
-        System.out.println("Insertamos una nueva categoría con SQL nativo.");
+        // Asignar el nuevo alquiler al inventario y viceversa
+        inventory.getRentals().add(nuevoAlquiler);
+        film.getInventories().add(inventory);
 
-        // Obtenemos transacción
-        EntityTransaction transaction = entityManager.getTransaction();
+        em.getTransaction().begin();
+        em.persist(nuevoAlquiler);
+        em.getTransaction().commit();
 
-        // Hacemos la operación dentro de try/catch para poder hacer rollback si algo va mal
-        try {
-            // Iniciamos transacción
-            transaction.begin();
-
-            // Creamos un objeto Query, con la sentencia insert con parámetros
-            Query insertQuery = entityManager.createNativeQuery("INSERT INTO rental (rental_date, customer_id, staff_id, last_update) " +
-                    "VALUES (CURRENT_TIMESTAMP, :inventoryId, :customerId, :staffId, CURRENT_TIMESTAMP)");
-            insertQuery.setParameter("inventoryId", 100000);
-            insertQuery.setParameter("customerId", customerId);
-            insertQuery.setParameter("staffId", staffId);
-            insertQuery.executeUpdate();
-
-            // Así no podremos saber el id generado. En otro ejemplo se ve cómo recuperar el id.
-
-            // Commit de la transacción
-            transaction.commit();
-        } finally {
-            // Si la transacción sigue abierta al llegar aquí, es que tenemos
-            // problemas, y hay que deshacer los cambios
-            if (transaction.isActive()) {
-                transaction.rollback();
-            }
-        }
+        System.out.println("Alquiler realizado con éxito. Detalles del alquiler:");
+        System.out.println("ID del alquiler: " + nuevoAlquiler.getRentalId());
+        System.out.println("Fecha del alquiler: " + nuevoAlquiler.getRentalDate());
+        System.out.println("Película alquilada: " + nuevoAlquiler.getInventoryByInventoryId().getFilm().getTitle());
     }
-    public static int getInventoryCountForFilm(int filmId, int storeId) {
+
+    public static boolean existInventoryCountForFilm (EntityManager entityManager,int filmId, int storeId){
         int inventoryCount = 0;
 
-        try (Connection connection = DriverManager.getConnection(JDBC_URL, USER, PASSWORD)) {
-            try (PreparedStatement preparedStatement = connection.prepareStatement(COUNT_INVENTORY)) {
-                preparedStatement.setInt(1, filmId);
-                preparedStatement.setInt(2, storeId);
-                try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                    if (resultSet.next()) {
-                        inventoryCount = resultSet.getInt(1);
-                    }
-                }
-            }
-        } catch (SQLException e) {
+        try {
+            Query query = entityManager.createNativeQuery(COUNT_INVENTORY);
+            query.setParameter(1, filmId);
+            query.setParameter(2, storeId);
+
+            Number result = (Number) query.getSingleResult();
+            inventoryCount = result.intValue();
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
+        if (inventoryCount>0){
+            return true;
+        }
 
-        return inventoryCount;
+        return false;
     }
 
 }

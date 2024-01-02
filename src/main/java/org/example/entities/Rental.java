@@ -106,6 +106,12 @@ public class Rental {
     public void setStaffId(Integer staffId) {
         this.staffId = staffId;
     }
+    public void setStaff(Staff staff) {
+        this.staff = staff;
+        if (staff != null && !staff.getRentalsByStaffId().contains(this)) {
+            staff.getRentalsByStaffId().add(this);
+        }
+    }
 
     public Timestamp getLastUpdate() {
         return lastUpdate;
