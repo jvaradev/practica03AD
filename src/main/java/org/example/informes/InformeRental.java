@@ -2,12 +2,12 @@ package org.example.informes;
 
 import jakarta.persistence.*;
 import org.example.entities.Staff;
+import org.example.entities.Customer;
+import org.example.entities.Store;
+import org.example.entities.Inventory;
+import org.example.entities.Film;
 
-import org.example.entities.*;
-
-import java.sql.*;
-import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Scanner;
 
 public class InformeRental {
     private static final EntityManagerFactory entityManagerFactory =
@@ -16,7 +16,6 @@ public class InformeRental {
 
     public static void main(String[] args) {
         // Configurar el EntityManager
-
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         // Scanner para leer la entrada del usuario
@@ -39,24 +38,38 @@ public class InformeRental {
                 System.out.println("Error: El empleado con ID " + staffId + " no existe.");
                 return;
             }
-            System.out.println(getTiendaDelEmpleado(staffId));
-            System.out.println(existInventoryCountForFilm(entityManager,filmId,getTiendaDelEmpleado(staffId)));
-            System.out.println(existeClienteTienda(getTiendaDelEmpleado(staffId),customerId));
 
-            //System.out.println(hayCopiasDisponibles(getTiendaDelEmpleado(staffId),filmId));
-            realizarAlquiler(entityManager,staffId,filmId,customerId);
+            int tiendaId = getTiendaDelEmpleado(staffId);
+
+            // Verificar la existencia del inventario
+            if (!existInventoryCountForFilm(entityManager, filmId, tiendaId)) {
+                System.out.println("Error: La película con ID " + filmId + " no está disponible en la tienda.");
+                return;
+            }
+
+            // Verificar la existencia del cliente en la tienda
+            if (!existeClienteTienda(tiendaId, customerId)) {
+                System.out.println("Error: El cliente con ID " + customerId + " no pertenece a la tienda.");
+                return;
+            }
+
+            // Realizar el alquiler
+            realizarAlquiler(entityManager, staffId, filmId, customerId);
+            System.out.println("Alquiler realizado con éxito.");
         } finally {
             // Cerrar el EntityManager al finalizar
             entityManager.close();
             entityManagerFactory.close();
         }
     }
+
     private static int getTiendaDelEmpleado(int staffId) {
         // Puedes acceder a la tienda directamente desde la relación en la entidad Staff
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         Staff staff = entityManager.find(Staff.class, (short) staffId);
         return staff.getStoreId();
     }
+
     private static boolean existeClienteTienda(int tiendaId, int customerId) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
@@ -68,46 +81,33 @@ public class InformeRental {
             return false;
         }
 
-        Collection<Customer> customers = store.getCustomersByStoreId();
-
-        for (Customer customerByStore : customers) {
-            if (customerByStore.equals(customer)) {
-                return true;
-            }
-        }
-
-        return false;
+        return store.getCustomersByStoreId().contains(customer);
     }
-
 
     private static void realizarAlquiler(EntityManager em, int empleadoId, int peliculaId, int clienteId) {
         Customer customer = em.find(Customer.class, (short) clienteId);
         Staff staff = em.find(Staff.class, (short) empleadoId);
         Inventory inventory = em.find(Inventory.class, peliculaId);
-        Film film = em.find(Film.class, peliculaId);
 
-        // Crear un nuevo alquiler (rental)
-        Rental nuevoAlquiler = new Rental();
-        nuevoAlquiler.setRentalDate(Timestamp.valueOf(LocalDateTime.now()));
-        nuevoAlquiler.setInventoryByInventoryId(inventory); // Asignar el inventario directamente
-        nuevoAlquiler.setCustomerId((short) clienteId);
-        nuevoAlquiler.setStaff(staff);
+        EntityTransaction transaction = em.getTransaction();
 
-        // Asignar el nuevo alquiler al inventario y viceversa
-        inventory.getRentals().add(nuevoAlquiler);
-        film.getInventories().add(inventory);
-
-        em.getTransaction().begin();
-        em.persist(nuevoAlquiler);
-        em.getTransaction().commit();
-
-        System.out.println("Alquiler realizado con éxito. Detalles del alquiler:");
-        System.out.println("ID del alquiler: " + nuevoAlquiler.getRentalId());
-        System.out.println("Fecha del alquiler: " + nuevoAlquiler.getRentalDate());
-        System.out.println("Película alquilada: " + nuevoAlquiler.getInventoryByInventoryId().getFilm().getTitle());
+        try {
+            transaction.begin();
+            Query insertQuery = em.createNativeQuery("INSERT INTO rental(inventory_id, customer_id, staff_id) VALUES (?, ?, ?)");
+            insertQuery.setParameter(1, inventory.getInventoryId());
+            insertQuery.setParameter(2, customer.getCustomerId());
+            insertQuery.setParameter(3, staff.getStaffId());
+            insertQuery.executeUpdate();
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            throw new RuntimeException("Error al realizar el alquiler.", e);
+        }
     }
 
-    public static boolean existInventoryCountForFilm (EntityManager entityManager,int filmId, int storeId){
+    public static boolean existInventoryCountForFilm(EntityManager entityManager, int filmId, int storeId) {
         int inventoryCount = 0;
 
         try {
@@ -121,11 +121,7 @@ public class InformeRental {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (inventoryCount>0){
-            return true;
-        }
 
-        return false;
+        return inventoryCount > 0;
     }
-
 }

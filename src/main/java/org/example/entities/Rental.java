@@ -18,7 +18,7 @@ public class Rental {
     private Timestamp rentalDate;
     @Basic
     @Column(name = "inventory_id")
-    private Object inventoryId;
+    private Integer inventoryId;
     @Basic
     @Column(name = "customer_id", insertable = false, updatable = false)
     private Short customerId;
@@ -43,9 +43,6 @@ public class Rental {
     private Staff staffByStaffId;
     @OneToMany(mappedBy = "rental")
     private Set<Payment> payments;
-    @ManyToOne
-    @JoinColumn(name = "inventory_id", referencedColumnName = "inventory_id", nullable = false, insertable = false, updatable = false)
-    private Inventory inventoryByInventoryId;
 
     @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "customer_id", nullable = false, insertable = false, updatable = false)
@@ -58,6 +55,9 @@ public class Rental {
     @ManyToOne
     @JoinColumn(name = "staff_id", referencedColumnName = "staff_id", nullable = false, insertable = false, updatable = false)
     private Staff employee;
+    @ManyToOne
+    @JoinColumn(name = "inventory_id", referencedColumnName = "inventory_id", nullable = false, insertable = false, updatable = false)
+    private Inventory inventoryByInventoryId;
 
     public Integer getRentalId() {
         return rentalId;
@@ -79,7 +79,7 @@ public class Rental {
         return inventoryId;
     }
 
-    public void setInventoryId(Object inventoryId) {
+    public void setInventoryId(Integer inventoryId) {
         this.inventoryId = inventoryId;
     }
 
