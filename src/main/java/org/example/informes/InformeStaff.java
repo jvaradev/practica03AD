@@ -40,9 +40,9 @@ public class InformeStaff {
                 System.out.println("ID del Empleado: " + staff.getStaffId());
                 System.out.println("Nombre: " + staff.getFirstName() + " " + staff.getLastName());
                 System.out.println("Correo Electrónico: " + staff.getEmail());
-                System.out.print("Id de la tienda: " + staff.getStoreId() + ". ");
+                System.out.print("Tienda del Empleado: " + staff.getStoreId() + ". ");
                 showStoreAddress(staff.getStoreId());
-                System.out.println("Dirección Empleado: " + staff.getAddress());
+                System.out.println("Dirección Empleado: " + staff.getAddressByAddressId().toString());
                 System.out.println("Última Actualización: " + staff.getLastUpdate());
 
             } else {

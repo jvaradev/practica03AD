@@ -98,9 +98,9 @@ public class Inventory {
     @Override
     public int hashCode() {
         int result = inventoryId != null ? inventoryId.hashCode() : 0;
-        result = 31 * result + (filmId != null ? filmId.hashCode() : 0);
-        result = 31 * result + (storeId != null ? storeId.hashCode() : 0);
-        result = 31 * result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
+        result = result + (filmId != null ? filmId.hashCode() : 0);
+        result = result + (storeId != null ? storeId.hashCode() : 0);
+        result = result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
         return result;
     }
 

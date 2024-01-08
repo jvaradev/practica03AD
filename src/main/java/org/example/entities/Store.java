@@ -97,9 +97,9 @@ public class Store {
     @Override
     public int hashCode() {
         int result = storeId != null ? storeId.hashCode() : 0;
-        result = 31 * result + (managerStaffId != null ? managerStaffId.hashCode() : 0);
-        result = 31 * result + (addressId != null ? addressId.hashCode() : 0);
-        result = 31 * result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
+        result = result + (managerStaffId != null ? managerStaffId.hashCode() : 0);
+        result = result + (addressId != null ? addressId.hashCode() : 0);
+        result = result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
         return result;
     }
 

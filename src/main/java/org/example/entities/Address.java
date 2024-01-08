@@ -132,13 +132,13 @@ public class Address {
     @Override
     public int hashCode() {
         int result = addressId != null ? addressId.hashCode() : 0;
-        result = 31 * result + (address != null ? address.hashCode() : 0);
-        result = 31 * result + (address2 != null ? address2.hashCode() : 0);
-        result = 31 * result + (district != null ? district.hashCode() : 0);
-        result = 31 * result + (cityId != null ? cityId.hashCode() : 0);
-        result = 31 * result + (postalCode != null ? postalCode.hashCode() : 0);
-        result = 31 * result + (phone != null ? phone.hashCode() : 0);
-        result = 31 * result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
+        result = result + (address != null ? address.hashCode() : 0);
+        result = result + (address2 != null ? address2.hashCode() : 0);
+        result = result + (district != null ? district.hashCode() : 0);
+        result = result + (cityId != null ? cityId.hashCode() : 0);
+        result = result + (postalCode != null ? postalCode.hashCode() : 0);
+        result = result + (phone != null ? phone.hashCode() : 0);
+        result = result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
         return result;
     }
 
@@ -147,7 +147,6 @@ public class Address {
         return "address='" + address + '\'' +
                 ", address2='" + address2 + '\'' +
                 ", district='" + district + '\'' +
-                ", city=" + city +
-                '}';
+                ", city=" + city;
     }
 }

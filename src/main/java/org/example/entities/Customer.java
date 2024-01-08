@@ -158,14 +158,14 @@ public class Customer {
     @Override
     public int hashCode() {
         int result = customerId != null ? customerId.hashCode() : 0;
-        result = 31 * result + (storeId != null ? storeId.hashCode() : 0);
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (addressId != null ? addressId.hashCode() : 0);
-        result = 31 * result + (active != null ? active.hashCode() : 0);
-        result = 31 * result + (createDate != null ? createDate.hashCode() : 0);
-        result = 31 * result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
+        result = result + (storeId != null ? storeId.hashCode() : 0);
+        result = result + (firstName != null ? firstName.hashCode() : 0);
+        result = result + (lastName != null ? lastName.hashCode() : 0);
+        result = result + (email != null ? email.hashCode() : 0);
+        result = result + (addressId != null ? addressId.hashCode() : 0);
+        result = result + (active != null ? active.hashCode() : 0);
+        result = result + (createDate != null ? createDate.hashCode() : 0);
+        result = result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
         return result;
     }
 

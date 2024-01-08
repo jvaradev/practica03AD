@@ -131,12 +131,12 @@ public class Payment {
     @Override
     public int hashCode() {
         int result = paymentId != null ? paymentId.hashCode() : 0;
-        result = 31 * result + (customerId != null ? customerId.hashCode() : 0);
-        result = 31 * result + (staffId != null ? staffId.hashCode() : 0);
-        result = 31 * result + (rentalId != null ? rentalId.hashCode() : 0);
-        result = 31 * result + (amount != null ? amount.hashCode() : 0);
-        result = 31 * result + (paymentDate != null ? paymentDate.hashCode() : 0);
-        result = 31 * result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
+        result = result + (customerId != null ? customerId.hashCode() : 0);
+        result = result + (staffId != null ? staffId.hashCode() : 0);
+        result = result + (rentalId != null ? rentalId.hashCode() : 0);
+        result = result + (amount != null ? amount.hashCode() : 0);
+        result = result + (paymentDate != null ? paymentDate.hashCode() : 0);
+        result = result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
         return result;
     }
 }

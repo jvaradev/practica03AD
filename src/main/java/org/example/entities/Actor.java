@@ -75,9 +75,12 @@ public class Actor {
     @Override
     public int hashCode() {
         int result = actorId != null ? actorId.hashCode() : 0;
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
+        result = result + (firstName != null ? firstName.hashCode() : 0);
+        result = result + (lastName != null ? lastName.hashCode() : 0);
+        result = result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
         return result;
     }
+
+
+
 }

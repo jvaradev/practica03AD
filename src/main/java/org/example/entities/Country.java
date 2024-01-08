@@ -62,8 +62,8 @@ public class Country {
     @Override
     public int hashCode() {
         int result = countryId != null ? countryId.hashCode() : 0;
-        result = 31 * result + (country != null ? country.hashCode() : 0);
-        result = 31 * result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
+        result = result + (country != null ? country.hashCode() : 0);
+        result = result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
         return result;
     }
 

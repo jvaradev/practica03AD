@@ -59,8 +59,8 @@ public class Category {
     @Override
     public int hashCode() {
         int result = categoryId != null ? categoryId.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
+        result = result + (name != null ? name.hashCode() : 0);
+        result = result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
         return result;
     }
 }

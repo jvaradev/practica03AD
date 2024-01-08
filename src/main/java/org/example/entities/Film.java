@@ -240,18 +240,18 @@ public class Film {
     @Override
     public int hashCode() {
         int result = filmId != null ? filmId.hashCode() : 0;
-        result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (releaseYear != null ? releaseYear.hashCode() : 0);
-        result = 31 * result + (languageId != null ? languageId.hashCode() : 0);
-        result = 31 * result + (originalLanguageId != null ? originalLanguageId.hashCode() : 0);
-        result = 31 * result + (rentalDuration != null ? rentalDuration.hashCode() : 0);
-        result = 31 * result + (rentalRate != null ? rentalRate.hashCode() : 0);
-        result = 31 * result + (length != null ? length.hashCode() : 0);
-        result = 31 * result + (replacementCost != null ? replacementCost.hashCode() : 0);
-        result = 31 * result + (rating != null ? rating.hashCode() : 0);
-        result = 31 * result + (specialFeatures != null ? specialFeatures.hashCode() : 0);
-        result = 31 * result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
+        result = result + (title != null ? title.hashCode() : 0);
+        result = result + (description != null ? description.hashCode() : 0);
+        result = result + (releaseYear != null ? releaseYear.hashCode() : 0);
+        result = result + (languageId != null ? languageId.hashCode() : 0);
+        result = result + (originalLanguageId != null ? originalLanguageId.hashCode() : 0);
+        result = result + (rentalDuration != null ? rentalDuration.hashCode() : 0);
+        result = result + (rentalRate != null ? rentalRate.hashCode() : 0);
+        result = result + (length != null ? length.hashCode() : 0);
+        result = result + (replacementCost != null ? replacementCost.hashCode() : 0);
+        result = result + (rating != null ? rating.hashCode() : 0);
+        result = result + (specialFeatures != null ? specialFeatures.hashCode() : 0);
+        result = result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
         return result;
     }
 

@@ -187,16 +187,16 @@ public class Staff {
     @Override
     public int hashCode() {
         int result = staffId != null ? staffId.hashCode() : 0;
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (addressId != null ? addressId.hashCode() : 0);
-        result = 31 * result + Arrays.hashCode(picture);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (storeId != null ? storeId.hashCode() : 0);
-        result = 31 * result + (active != null ? active.hashCode() : 0);
-        result = 31 * result + (username != null ? username.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
+        result = result + (firstName != null ? firstName.hashCode() : 0);
+        result = result + (lastName != null ? lastName.hashCode() : 0);
+        result = result + (addressId != null ? addressId.hashCode() : 0);
+        result = result + Arrays.hashCode(picture);
+        result = result + (email != null ? email.hashCode() : 0);
+        result = result + (storeId != null ? storeId.hashCode() : 0);
+        result = result + (active != null ? active.hashCode() : 0);
+        result = result + (username != null ? username.hashCode() : 0);
+        result = result + (password != null ? password.hashCode() : 0);
+        result = result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
         return result;
     }
 

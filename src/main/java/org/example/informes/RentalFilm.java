@@ -1,15 +1,11 @@
 package org.example.informes;
 
 import jakarta.persistence.*;
-import org.example.entities.Staff;
-import org.example.entities.Customer;
-import org.example.entities.Store;
-import org.example.entities.Inventory;
-import org.example.entities.Film;
+import org.example.entities.*;
 
 import java.util.Scanner;
 
-public class InformeRental {
+public class RentalFilm {
     private static final EntityManagerFactory entityManagerFactory =
             Persistence.createEntityManagerFactory("SAKILA_PERSISTENCE_UNIT");
     private static final String COUNT_INVENTORY = "SELECT COUNT(*) AS inventory_count FROM inventory WHERE film_id = ? and store_id=?";
@@ -64,7 +60,6 @@ public class InformeRental {
     }
 
     private static int getTiendaDelEmpleado(int staffId) {
-        // Puedes acceder a la tienda directamente desde la relación en la entidad Staff
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         Staff staff = entityManager.find(Staff.class, (short) staffId);
         return staff.getStoreId();
@@ -87,14 +82,14 @@ public class InformeRental {
     private static void realizarAlquiler(EntityManager em, int empleadoId, int peliculaId, int clienteId) {
         Customer customer = em.find(Customer.class, (short) clienteId);
         Staff staff = em.find(Staff.class, (short) empleadoId);
-        Inventory inventory = em.find(Inventory.class, peliculaId);
+        Film film = em.find(Film.class,peliculaId);
 
         EntityTransaction transaction = em.getTransaction();
 
         try {
             transaction.begin();
             Query insertQuery = em.createNativeQuery("INSERT INTO rental(inventory_id, customer_id, staff_id) VALUES (?, ?, ?)");
-            insertQuery.setParameter(1, inventory.getInventoryId());
+            insertQuery.setParameter(1, film.getInventoryId());
             insertQuery.setParameter(2, customer.getCustomerId());
             insertQuery.setParameter(3, staff.getStaffId());
             insertQuery.executeUpdate();

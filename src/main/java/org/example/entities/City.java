@@ -83,9 +83,9 @@ public class City {
     @Override
     public int hashCode() {
         int result = cityId != null ? cityId.hashCode() : 0;
-        result = 31 * result + (city != null ? city.hashCode() : 0);
-        result = 31 * result + (countryId != null ? countryId.hashCode() : 0);
-        result = 31 * result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
+        result = result + (city != null ? city.hashCode() : 0);
+        result = result + (countryId != null ? countryId.hashCode() : 0);
+        result = result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
         return result;
     }
 

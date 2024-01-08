@@ -142,12 +142,12 @@ public class Rental {
     @Override
     public int hashCode() {
         int result = rentalId != null ? rentalId.hashCode() : 0;
-        result = 31 * result + (rentalDate != null ? rentalDate.hashCode() : 0);
-        result = 31 * result + (inventoryId != null ? inventoryId.hashCode() : 0);
-        result = 31 * result + (customerId != null ? customerId.hashCode() : 0);
-        result = 31 * result + (returnDate != null ? returnDate.hashCode() : 0);
-        result = 31 * result + (staffId != null ? staffId.hashCode() : 0);
-        result = 31 * result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
+        result = result + (rentalDate != null ? rentalDate.hashCode() : 0);
+        result = result + (inventoryId != null ? inventoryId.hashCode() : 0);
+        result = result + (customerId != null ? customerId.hashCode() : 0);
+        result = result + (returnDate != null ? returnDate.hashCode() : 0);
+        result = result + (staffId != null ? staffId.hashCode() : 0);
+        result = result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
         return result;
     }
 
