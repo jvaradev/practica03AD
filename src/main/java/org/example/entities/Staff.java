@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Objects;
 
 @Entity
 @Table(name = "staff")
@@ -165,38 +166,14 @@ public class Staff {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Staff staff = (Staff) o;
-
-        if (staffId != null ? !staffId.equals(staff.staffId) : staff.staffId != null) return false;
-        if (firstName != null ? !firstName.equals(staff.firstName) : staff.firstName != null) return false;
-        if (lastName != null ? !lastName.equals(staff.lastName) : staff.lastName != null) return false;
-        if (addressId != null ? !addressId.equals(staff.addressId) : staff.addressId != null) return false;
-        if (!Arrays.equals(picture, staff.picture)) return false;
-        if (email != null ? !email.equals(staff.email) : staff.email != null) return false;
-        if (storeId != null ? !storeId.equals(staff.storeId) : staff.storeId != null) return false;
-        if (active != null ? !active.equals(staff.active) : staff.active != null) return false;
-        if (username != null ? !username.equals(staff.username) : staff.username != null) return false;
-        if (password != null ? !password.equals(staff.password) : staff.password != null) return false;
-        if (lastUpdate != null ? !lastUpdate.equals(staff.lastUpdate) : staff.lastUpdate != null) return false;
-
-        return true;
+        if (!(o instanceof Staff staff)) return false;
+        return Objects.equals(getStaffId(), staff.getStaffId()) && Objects.equals(getFirstName(), staff.getFirstName()) && Objects.equals(getLastName(), staff.getLastName()) && Objects.equals(getAddressId(), staff.getAddressId()) && Arrays.equals(getPicture(), staff.getPicture()) && Objects.equals(getEmail(), staff.getEmail()) && Objects.equals(getStoreId(), staff.getStoreId()) && Objects.equals(getActive(), staff.getActive()) && Objects.equals(getUsername(), staff.getUsername()) && Objects.equals(getPassword(), staff.getPassword()) && Objects.equals(getLastUpdate(), staff.getLastUpdate()) && Objects.equals(getRentalsByStaffId(), staff.getRentalsByStaffId()) && Objects.equals(getAddressByAddressId(), staff.getAddressByAddressId()) && Objects.equals(storeByStoreId, staff.storeByStoreId) && Objects.equals(getAddress(), staff.getAddress()) && Objects.equals(store, staff.store) && Objects.equals(getPaymentsByStaffId(), staff.getPaymentsByStaffId()) && Objects.equals(rentals, staff.rentals);
     }
 
     @Override
     public int hashCode() {
-        int result = staffId != null ? staffId.hashCode() : 0;
-        result = result + (firstName != null ? firstName.hashCode() : 0);
-        result = result + (lastName != null ? lastName.hashCode() : 0);
-        result = result + (addressId != null ? addressId.hashCode() : 0);
-        result = result + Arrays.hashCode(picture);
-        result = result + (email != null ? email.hashCode() : 0);
-        result = result + (storeId != null ? storeId.hashCode() : 0);
-        result = result + (active != null ? active.hashCode() : 0);
-        result = result + (username != null ? username.hashCode() : 0);
-        result = result + (password != null ? password.hashCode() : 0);
-        result = result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
+        int result = Objects.hash(getStaffId(), getFirstName(), getLastName(), getAddressId(), getEmail(), getStoreId(), getActive(), getUsername(), getPassword(), getLastUpdate(), getRentalsByStaffId(), getAddressByAddressId(), storeByStoreId, getAddress(), store, getPaymentsByStaffId(), rentals);
+        result = 31 * result + Arrays.hashCode(getPicture());
         return result;
     }
 

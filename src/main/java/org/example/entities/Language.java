@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Objects;
 
 @Entity
 @Table(name = "language")
@@ -50,23 +51,13 @@ public class Language {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Language language = (Language) o;
-
-        if (languageId != null ? !languageId.equals(language.languageId) : language.languageId != null) return false;
-        if (name != null ? !name.equals(language.name) : language.name != null) return false;
-        if (lastUpdate != null ? !lastUpdate.equals(language.lastUpdate) : language.lastUpdate != null) return false;
-
-        return true;
+        if (!(o instanceof Language language)) return false;
+        return Objects.equals(getLanguageId(), language.getLanguageId()) && Objects.equals(getName(), language.getName()) && Objects.equals(getLastUpdate(), language.getLastUpdate()) && Objects.equals(getFilmsByLanguageId(), language.getFilmsByLanguageId()) && Objects.equals(getFilmsByLanguageId_0(), language.getFilmsByLanguageId_0());
     }
 
     @Override
     public int hashCode() {
-        int result = languageId != null ? languageId.hashCode() : 0;
-        result = result + (name != null ? name.hashCode() : 0);
-        result = result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
-        return result;
+        return Objects.hash(getLanguageId(), getName(), getLastUpdate(), getFilmsByLanguageId(), getFilmsByLanguageId_0());
     }
 
     public Collection<Film> getFilmsByLanguageId() {

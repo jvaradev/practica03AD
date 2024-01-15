@@ -3,6 +3,7 @@ package org.example.entities;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -61,26 +62,12 @@ public class Actor {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Actor actor = (Actor) o;
-
-        if (actorId != null ? !actorId.equals(actor.actorId) : actor.actorId != null) return false;
-        if (firstName != null ? !firstName.equals(actor.firstName) : actor.firstName != null) return false;
-        if (lastName != null ? !lastName.equals(actor.lastName) : actor.lastName != null) return false;
-        if (lastUpdate != null ? !lastUpdate.equals(actor.lastUpdate) : actor.lastUpdate != null) return false;
-
-        return true;
+        return Objects.equals(actorId, actor.actorId) && Objects.equals(firstName, actor.firstName) && Objects.equals(lastName, actor.lastName) && Objects.equals(lastUpdate, actor.lastUpdate) && Objects.equals(films, actor.films);
     }
 
     @Override
     public int hashCode() {
-        int result = actorId != null ? actorId.hashCode() : 0;
-        result = result + (firstName != null ? firstName.hashCode() : 0);
-        result = result + (lastName != null ? lastName.hashCode() : 0);
-        result = result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
-        return result;
+        return Objects.hash(actorId, firstName, lastName, lastUpdate, films);
     }
-
-
-
 }

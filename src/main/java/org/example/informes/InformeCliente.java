@@ -35,6 +35,7 @@ public class InformeCliente {
         } while (idCustomer != 0);
     }
 
+    //Método que muestra el nombre, apellido, email y dirección del cliente
     public static void showCustomerDetails(int customerId) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -53,7 +54,6 @@ public class InformeCliente {
                 } else {
                     System.out.println("El cliente no tiene una dirección asociada.");
                 }
-                // Falta información de la tienda asociada, lista de alquileres y pagos.
             } else {
                 System.out.println("No se encontró un cliente con el ID proporcionado.");
             }
@@ -64,6 +64,7 @@ public class InformeCliente {
             entityManager.close();
         }
     }
+    //muestra la tienda asociada al cliente
     public static void showStoreDetails(int customerId) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -92,6 +93,7 @@ public class InformeCliente {
         }
     }
 
+    //muestra los alquileres realizados por el cliente
     public static void showRentalsDetails(int customerId){
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -109,6 +111,7 @@ public class InformeCliente {
             System.out.println("El cliente no ha realizado alquileres.");
         }
     }
+    //muestra los pagos realizados por el cliente
     public static void showPaymentsDetails(int customerId) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();

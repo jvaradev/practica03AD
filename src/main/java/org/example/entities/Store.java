@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -81,26 +82,13 @@ public class Store {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Store store = (Store) o;
-
-        if (storeId != null ? !storeId.equals(store.storeId) : store.storeId != null) return false;
-        if (managerStaffId != null ? !managerStaffId.equals(store.managerStaffId) : store.managerStaffId != null)
-            return false;
-        if (addressId != null ? !addressId.equals(store.addressId) : store.addressId != null) return false;
-        if (lastUpdate != null ? !lastUpdate.equals(store.lastUpdate) : store.lastUpdate != null) return false;
-
-        return true;
+        if (!(o instanceof Store store)) return false;
+        return Objects.equals(getStoreId(), store.getStoreId()) && Objects.equals(getManagerStaffId(), store.getManagerStaffId()) && Objects.equals(getAddressId(), store.getAddressId()) && Objects.equals(getLastUpdate(), store.getLastUpdate()) && Objects.equals(getInventoriesByStoreId(), store.getInventoriesByStoreId()) && Objects.equals(getStaffByManagerStaffId(), store.getStaffByManagerStaffId()) && Objects.equals(getAddressByAddressId(), store.getAddressByAddressId()) && Objects.equals(employees, store.employees) && Objects.equals(address, store.address) && Objects.equals(managerStaff, store.managerStaff) && Objects.equals(getCustomersByStoreId(), store.getCustomersByStoreId()) && Objects.equals(getStaffByStoreId(), store.getStaffByStoreId());
     }
 
     @Override
     public int hashCode() {
-        int result = storeId != null ? storeId.hashCode() : 0;
-        result = result + (managerStaffId != null ? managerStaffId.hashCode() : 0);
-        result = result + (addressId != null ? addressId.hashCode() : 0);
-        result = result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
-        return result;
+        return Objects.hash(getStoreId(), getManagerStaffId(), getAddressId(), getLastUpdate(), getInventoriesByStoreId(), getStaffByManagerStaffId(), getAddressByAddressId(), employees, address, managerStaff, getCustomersByStoreId(), getStaffByStoreId());
     }
 
     public Collection<Customer> getCustomersByStoreId() {

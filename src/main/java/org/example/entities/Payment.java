@@ -3,6 +3,7 @@ package org.example.entities;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Table(name = "payment")
@@ -115,28 +116,12 @@ public class Payment {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Payment payment = (Payment) o;
-
-        if (paymentId != null ? !paymentId.equals(payment.paymentId) : payment.paymentId != null) return false;
-        if (customerId != null ? !customerId.equals(payment.customerId) : payment.customerId != null) return false;
-        if (staffId != null ? !staffId.equals(payment.staffId) : payment.staffId != null) return false;
-        if (rentalId != null ? !rentalId.equals(payment.rentalId) : payment.rentalId != null) return false;
-        if (amount != null ? !amount.equals(payment.amount) : payment.amount != null) return false;
-        if (paymentDate != null ? !paymentDate.equals(payment.paymentDate) : payment.paymentDate != null) return false;
-        return lastUpdate != null ? lastUpdate.equals(payment.lastUpdate) : payment.lastUpdate == null;
+        if (!(o instanceof Payment payment)) return false;
+        return Objects.equals(getPaymentId(), payment.getPaymentId()) && Objects.equals(getCustomerId(), payment.getCustomerId()) && Objects.equals(getStaffId(), payment.getStaffId()) && Objects.equals(getRentalId(), payment.getRentalId()) && Objects.equals(getAmount(), payment.getAmount()) && Objects.equals(getPaymentDate(), payment.getPaymentDate()) && Objects.equals(getLastUpdate(), payment.getLastUpdate()) && Objects.equals(customerByCustomerId, payment.customerByCustomerId) && Objects.equals(rentalByRentalId, payment.rentalByRentalId) && Objects.equals(customer, payment.customer) && Objects.equals(rental, payment.rental) && Objects.equals(staffByStaffId, payment.staffByStaffId);
     }
 
     @Override
     public int hashCode() {
-        int result = paymentId != null ? paymentId.hashCode() : 0;
-        result = result + (customerId != null ? customerId.hashCode() : 0);
-        result = result + (staffId != null ? staffId.hashCode() : 0);
-        result = result + (rentalId != null ? rentalId.hashCode() : 0);
-        result = result + (amount != null ? amount.hashCode() : 0);
-        result = result + (paymentDate != null ? paymentDate.hashCode() : 0);
-        result = result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
-        return result;
+        return Objects.hash(getPaymentId(), getCustomerId(), getStaffId(), getRentalId(), getAmount(), getPaymentDate(), getLastUpdate(), customerByCustomerId, rentalByRentalId, customer, rental, staffByStaffId);
     }
 }

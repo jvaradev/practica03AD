@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Objects;
 
 @Entity
 @Table(name = "city")
@@ -68,34 +69,20 @@ public class City {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        City city1 = (City) o;
-
-        if (cityId != null ? !cityId.equals(city1.cityId) : city1.cityId != null) return false;
-        if (city != null ? !city.equals(city1.city) : city1.city != null) return false;
-        if (countryId != null ? !countryId.equals(city1.countryId) : city1.countryId != null) return false;
-        if (lastUpdate != null ? !lastUpdate.equals(city1.lastUpdate) : city1.lastUpdate != null) return false;
-
-        return true;
+        if (!(o instanceof City city1)) return false;
+        return Objects.equals(getCityId(), city1.getCityId()) && Objects.equals(getCity(), city1.getCity()) && Objects.equals(getCountryId(), city1.getCountryId()) && Objects.equals(getLastUpdate(), city1.getLastUpdate()) && Objects.equals(countryByCountryId, city1.countryByCountryId) && Objects.equals(country, city1.country) && Objects.equals(getAddressesByCityId(), city1.getAddressesByCityId());
     }
 
     @Override
     public int hashCode() {
-        int result = cityId != null ? cityId.hashCode() : 0;
-        result = result + (city != null ? city.hashCode() : 0);
-        result = result + (countryId != null ? countryId.hashCode() : 0);
-        result = result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
-        return result;
+        return Objects.hash(getCityId(), getCity(), getCountryId(), getLastUpdate(), countryByCountryId, country, getAddressesByCityId());
     }
+
 
     public Collection<Address> getAddressesByCityId() {
         return addressesByCityId;
     }
 
-    public void setAddressesByCityId(Collection<Address> addressesByCityId) {
-        this.addressesByCityId = addressesByCityId;
-    }
 
     @Override
     public String toString() {

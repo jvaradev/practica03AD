@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Objects;
 
 @Entity
 @Table(name = "inventory")
@@ -82,26 +83,13 @@ public class Inventory {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Inventory inventory = (Inventory) o;
-
-        if (inventoryId != null ? !inventoryId.equals(inventory.inventoryId) : inventory.inventoryId != null)
-            return false;
-        if (filmId != null ? !filmId.equals(inventory.filmId) : inventory.filmId != null) return false;
-        if (storeId != null ? !storeId.equals(inventory.storeId) : inventory.storeId != null) return false;
-        if (lastUpdate != null ? !lastUpdate.equals(inventory.lastUpdate) : inventory.lastUpdate != null) return false;
-
-        return true;
+        if (!(o instanceof Inventory inventory)) return false;
+        return Objects.equals(getInventoryId(), inventory.getInventoryId()) && Objects.equals(getFilmId(), inventory.getFilmId()) && Objects.equals(getStoreId(), inventory.getStoreId()) && Objects.equals(getLastUpdate(), inventory.getLastUpdate()) && Objects.equals(getFilmByFilmId(), inventory.getFilmByFilmId()) && Objects.equals(storeByStoreId, inventory.storeByStoreId) && Objects.equals(getFilm(), inventory.getFilm()) && Objects.equals(store, inventory.store) && Objects.equals(getRentals(), inventory.getRentals());
     }
 
     @Override
     public int hashCode() {
-        int result = inventoryId != null ? inventoryId.hashCode() : 0;
-        result = result + (filmId != null ? filmId.hashCode() : 0);
-        result = result + (storeId != null ? storeId.hashCode() : 0);
-        result = result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
-        return result;
+        return Objects.hash(getInventoryId(), getFilmId(), getStoreId(), getLastUpdate(), getFilmByFilmId(), storeByStoreId, getFilm(), store, getRentals());
     }
 
     public Film getFilmByFilmId() {

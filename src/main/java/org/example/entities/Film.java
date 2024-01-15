@@ -3,6 +3,7 @@ package org.example.entities;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -212,47 +213,13 @@ public class Film {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Film film = (Film) o;
-
-        if (filmId != null ? !filmId.equals(film.filmId) : film.filmId != null) return false;
-        if (title != null ? !title.equals(film.title) : film.title != null) return false;
-        if (description != null ? !description.equals(film.description) : film.description != null) return false;
-        if (releaseYear != null ? !releaseYear.equals(film.releaseYear) : film.releaseYear != null) return false;
-        if (languageId != null ? !languageId.equals(film.languageId) : film.languageId != null) return false;
-        if (originalLanguageId != null ? !originalLanguageId.equals(film.originalLanguageId) : film.originalLanguageId != null)
-            return false;
-        if (rentalDuration != null ? !rentalDuration.equals(film.rentalDuration) : film.rentalDuration != null)
-            return false;
-        if (rentalRate != null ? !rentalRate.equals(film.rentalRate) : film.rentalRate != null) return false;
-        if (length != null ? !length.equals(film.length) : film.length != null) return false;
-        if (replacementCost != null ? !replacementCost.equals(film.replacementCost) : film.replacementCost != null)
-            return false;
-        if (rating != null ? !rating.equals(film.rating) : film.rating != null) return false;
-        if (specialFeatures != null ? !specialFeatures.equals(film.specialFeatures) : film.specialFeatures != null)
-            return false;
-        if (lastUpdate != null ? !lastUpdate.equals(film.lastUpdate) : film.lastUpdate != null) return false;
-
-        return true;
+        if (!(o instanceof Film film)) return false;
+        return Objects.equals(getFilmId(), film.getFilmId()) && Objects.equals(getTitle(), film.getTitle()) && Objects.equals(getDescription(), film.getDescription()) && Objects.equals(getReleaseYear(), film.getReleaseYear()) && Objects.equals(getLanguageId(), film.getLanguageId()) && Objects.equals(getOriginalLanguageId(), film.getOriginalLanguageId()) && Objects.equals(getRentalDuration(), film.getRentalDuration()) && Objects.equals(getRentalRate(), film.getRentalRate()) && Objects.equals(getLength(), film.getLength()) && Objects.equals(getReplacementCost(), film.getReplacementCost()) && Objects.equals(getRating(), film.getRating()) && Objects.equals(getSpecialFeatures(), film.getSpecialFeatures()) && Objects.equals(getLastUpdate(), film.getLastUpdate()) && Objects.equals(language, film.language) && Objects.equals(languageByLanguageId, film.languageByLanguageId) && Objects.equals(languageByOriginalLanguageId, film.languageByOriginalLanguageId) && Objects.equals(getCategories(), film.getCategories()) && Objects.equals(getOriginalLanguage(), film.getOriginalLanguage()) && Objects.equals(getActors(), film.getActors()) && Objects.equals(getInventories(), film.getInventories());
     }
 
     @Override
     public int hashCode() {
-        int result = filmId != null ? filmId.hashCode() : 0;
-        result = result + (title != null ? title.hashCode() : 0);
-        result = result + (description != null ? description.hashCode() : 0);
-        result = result + (releaseYear != null ? releaseYear.hashCode() : 0);
-        result = result + (languageId != null ? languageId.hashCode() : 0);
-        result = result + (originalLanguageId != null ? originalLanguageId.hashCode() : 0);
-        result = result + (rentalDuration != null ? rentalDuration.hashCode() : 0);
-        result = result + (rentalRate != null ? rentalRate.hashCode() : 0);
-        result = result + (length != null ? length.hashCode() : 0);
-        result = result + (replacementCost != null ? replacementCost.hashCode() : 0);
-        result = result + (rating != null ? rating.hashCode() : 0);
-        result = result + (specialFeatures != null ? specialFeatures.hashCode() : 0);
-        result = result + (lastUpdate != null ? lastUpdate.hashCode() : 0);
-        return result;
+        return Objects.hash(getFilmId(), getTitle(), getDescription(), getReleaseYear(), getLanguageId(), getOriginalLanguageId(), getRentalDuration(), getRentalRate(), getLength(), getReplacementCost(), getRating(), getSpecialFeatures(), getLastUpdate(), language, languageByLanguageId, languageByOriginalLanguageId, getCategories(), getOriginalLanguage(), getActors(), getInventories());
     }
 
     @Override

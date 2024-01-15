@@ -28,6 +28,7 @@ public class InformeStaff {
         } while (staffId != 0);
     }
 
+    //Muestra los detalles del empleado
     public static void showStaffDetails(int staffId) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -56,6 +57,7 @@ public class InformeStaff {
         }
     }
 
+    //Muestra la dirección de la tienda
     public static void showStoreAddress(Short storeId) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -76,6 +78,7 @@ public class InformeStaff {
         }
     }
 
+    //Muestra los alquileres que ha hecho el empleado
     public static void showRentals(int staffId) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();

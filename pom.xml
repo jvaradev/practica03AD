@@ -25,26 +25,6 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.33</version>
         </dependency>
-        <dependency>
-            <groupId>jakarta.persistence</groupId>
-            <artifactId>jakarta.persistence-api</artifactId>
-            <version>3.1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>dev.the-fireplace</groupId>
-            <artifactId>Erroring-Entity-Remover</artifactId>
-            <version>1.0.2+1.18</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.andriamarosoa</groupId>
-            <artifactId>Entity</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.andriamarosoa</groupId>
-            <artifactId>Entity</artifactId>
-            <version>1.0.0</version>
-        </dependency>
 
     </dependencies>
 
