@@ -14,7 +14,7 @@ public class RentalFilm {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         Scanner scanner = new Scanner(System.in);
-
+        //ok
         try {
             System.out.print("Ingrese el ID del empleado que realiza el alquiler: ");
             int staffId = scanner.nextInt();
