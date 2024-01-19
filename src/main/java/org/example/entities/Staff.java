@@ -172,8 +172,8 @@ public class Staff {
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(getStaffId(), getFirstName(), getLastName(), getAddressId(), getEmail(), getStoreId(), getActive(), getUsername(), getPassword(), getLastUpdate(), getRentalsByStaffId(), getAddressByAddressId(), storeByStoreId, getAddress(), store, getPaymentsByStaffId(), rentals);
-        result = 31 * result + Arrays.hashCode(getPicture());
+        int result = Objects.hash(staffId, firstName, lastName, addressId, email, storeId, active, username, password, lastUpdate, rentalsByStaffId, addressByAddressId, storeByStoreId, address, store, paymentsByStaffId, rentals);
+        result = 31 * result + Arrays.hashCode(picture);
         return result;
     }
 

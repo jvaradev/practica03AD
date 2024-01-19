@@ -14,7 +14,7 @@ public class RentalFilm {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         Scanner scanner = new Scanner(System.in);
-        //ok
+
         try {
             System.out.print("Ingrese el ID del empleado que realiza el alquiler: ");
             int staffId = scanner.nextInt();
@@ -51,14 +51,14 @@ public class RentalFilm {
         }
     }
 
-    //Obtiene la tienda del empleado
+    //Método que obtiene la tienda del empleado
     private static int getTiendaDelEmpleado(int staffId) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         Staff staff = entityManager.find(Staff.class, (short) staffId);
         return staff.getStoreId();
     }
 
-    //Verifica si el Empleado existe en la tienda
+    //Método que verifica si el Empleado existe en la tienda
     private static boolean existCustomerStore(int storeId, int customerId) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
@@ -73,7 +73,7 @@ public class RentalFilm {
         return store.getCustomersByStoreId().contains(customer);
     }
 
-    //Realiza el alquiler de la película para un cliente específico por un empleado
+    //Método que realiza el alquiler de la película para un cliente específico por un empleado
     private static void makeRental(EntityManager em, int employeeId, int filmId, int customerId) {
         Customer customer = em.find(Customer.class, (short) customerId);
         Staff staff = em.find(Staff.class, (short) employeeId);
@@ -97,7 +97,7 @@ public class RentalFilm {
         }
     }
 
-    //Verifica que hay existencias de la película en la tienda del empleado
+    //Método que verifica que hay existencias de la película en la tienda del empleado
     public static boolean existInventoryForFilm(EntityManager entityManager, int filmId, int storeId) {
         int inventoryCount = 0;
 

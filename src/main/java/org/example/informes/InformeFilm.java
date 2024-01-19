@@ -31,7 +31,7 @@ public class InformeFilm {
         } while (idFilm != 0);
     }
 
-    //Muestra los detalles de la película
+    //Método que muestra los detalles de la película
     public static void showFilmDetail(int idFilm) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -61,7 +61,7 @@ public class InformeFilm {
         }
     }
 
-    //Muestra la categoría de la película
+    //Métpdp que muestra la categoría de la película
     public static void showCategory(int idFilm) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -92,7 +92,7 @@ public class InformeFilm {
         }
     }
 
-    //Muestra el idioma de la película
+    //Método que muestra el idioma de la película
     public static void showLanguageOriginal(int idFilm) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -122,7 +122,7 @@ public class InformeFilm {
         }
     }
 
-    //Muestra los actores que participan en la película
+    //Método que muestra los actores que participan en la película
     public static void showFilmActor(int idFilm) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -152,7 +152,7 @@ public class InformeFilm {
         }
     }
 
-    //Muestra la cantidad de películas que hay en cada una de las tiendas
+    //Método que muestra la cantidad de películas que hay en cada una de las tiendas
     public static void showFilmInventory(int idFilm) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -199,7 +199,7 @@ public class InformeFilm {
         }
     }
 
-    //Obtiene la cantidad de películas que hay en una tienda específica con un Query
+    //Método que obtiene la cantidad de películas que hay en una tienda específica con un Query
     public static int getInventoryCountForFilm (EntityManager entityManager,int filmId, int storeId){
         int inventoryCount = 0;
 

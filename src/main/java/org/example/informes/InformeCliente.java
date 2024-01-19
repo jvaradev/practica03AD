@@ -64,7 +64,8 @@ public class InformeCliente {
             entityManager.close();
         }
     }
-    //muestra la tienda asociada al cliente
+
+    //Método que muestra la tienda asociada al cliente
     public static void showStoreDetails(int customerId) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -93,7 +94,7 @@ public class InformeCliente {
         }
     }
 
-    //muestra los alquileres realizados por el cliente
+    //Método que muestra los alquileres realizados por el cliente
     public static void showRentalsDetails(int customerId){
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -111,7 +112,8 @@ public class InformeCliente {
             System.out.println("El cliente no ha realizado alquileres.");
         }
     }
-    //muestra los pagos realizados por el cliente
+
+    //Método que muestra los pagos realizados por el cliente
     public static void showPaymentsDetails(int customerId) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
