@@ -166,8 +166,9 @@ public class Staff {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Staff staff)) return false;
-        return Objects.equals(getStaffId(), staff.getStaffId()) && Objects.equals(getFirstName(), staff.getFirstName()) && Objects.equals(getLastName(), staff.getLastName()) && Objects.equals(getAddressId(), staff.getAddressId()) && Arrays.equals(getPicture(), staff.getPicture()) && Objects.equals(getEmail(), staff.getEmail()) && Objects.equals(getStoreId(), staff.getStoreId()) && Objects.equals(getActive(), staff.getActive()) && Objects.equals(getUsername(), staff.getUsername()) && Objects.equals(getPassword(), staff.getPassword()) && Objects.equals(getLastUpdate(), staff.getLastUpdate()) && Objects.equals(getRentalsByStaffId(), staff.getRentalsByStaffId()) && Objects.equals(getAddressByAddressId(), staff.getAddressByAddressId()) && Objects.equals(storeByStoreId, staff.storeByStoreId) && Objects.equals(getAddress(), staff.getAddress()) && Objects.equals(store, staff.store) && Objects.equals(getPaymentsByStaffId(), staff.getPaymentsByStaffId()) && Objects.equals(rentals, staff.rentals);
+        if (o == null || getClass() != o.getClass()) return false;
+        Staff staff = (Staff) o;
+        return Objects.equals(staffId, staff.staffId) && Objects.equals(firstName, staff.firstName) && Objects.equals(lastName, staff.lastName) && Objects.equals(addressId, staff.addressId) && Arrays.equals(picture, staff.picture) && Objects.equals(email, staff.email) && Objects.equals(storeId, staff.storeId) && Objects.equals(active, staff.active) && Objects.equals(username, staff.username) && Objects.equals(password, staff.password) && Objects.equals(lastUpdate, staff.lastUpdate) && Objects.equals(rentalsByStaffId, staff.rentalsByStaffId) && Objects.equals(addressByAddressId, staff.addressByAddressId) && Objects.equals(storeByStoreId, staff.storeByStoreId) && Objects.equals(address, staff.address) && Objects.equals(store, staff.store) && Objects.equals(paymentsByStaffId, staff.paymentsByStaffId) && Objects.equals(rentals, staff.rentals);
     }
 
     @Override

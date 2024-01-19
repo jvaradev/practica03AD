@@ -200,26 +200,24 @@ public class Film {
     }
 
     public Integer getInventoryId() {
-        // Este método asume que hay una relación One-to-One entre Film e Inventory
-        // Ajusta esto según tu modelo de datos real
         if (inventories != null && !inventories.isEmpty()) {
-            // Devuelve el inventoryId de la primera relación, puedes ajustar esto según tus necesidades
             return (Integer) inventories.iterator().next().getInventoryId();
         } else {
-            return null; // O lanza una excepción si no hay inventarios asociados al film
+            return null;
         }
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Film film)) return false;
-        return Objects.equals(getFilmId(), film.getFilmId()) && Objects.equals(getTitle(), film.getTitle()) && Objects.equals(getDescription(), film.getDescription()) && Objects.equals(getReleaseYear(), film.getReleaseYear()) && Objects.equals(getLanguageId(), film.getLanguageId()) && Objects.equals(getOriginalLanguageId(), film.getOriginalLanguageId()) && Objects.equals(getRentalDuration(), film.getRentalDuration()) && Objects.equals(getRentalRate(), film.getRentalRate()) && Objects.equals(getLength(), film.getLength()) && Objects.equals(getReplacementCost(), film.getReplacementCost()) && Objects.equals(getRating(), film.getRating()) && Objects.equals(getSpecialFeatures(), film.getSpecialFeatures()) && Objects.equals(getLastUpdate(), film.getLastUpdate()) && Objects.equals(language, film.language) && Objects.equals(languageByLanguageId, film.languageByLanguageId) && Objects.equals(languageByOriginalLanguageId, film.languageByOriginalLanguageId) && Objects.equals(getCategories(), film.getCategories()) && Objects.equals(getOriginalLanguage(), film.getOriginalLanguage()) && Objects.equals(getActors(), film.getActors()) && Objects.equals(getInventories(), film.getInventories());
+        if (o == null || getClass() != o.getClass()) return false;
+        Film film = (Film) o;
+        return Objects.equals(filmId, film.filmId) && Objects.equals(title, film.title) && Objects.equals(description, film.description) && Objects.equals(releaseYear, film.releaseYear) && Objects.equals(languageId, film.languageId) && Objects.equals(originalLanguageId, film.originalLanguageId) && Objects.equals(rentalDuration, film.rentalDuration) && Objects.equals(rentalRate, film.rentalRate) && Objects.equals(length, film.length) && Objects.equals(replacementCost, film.replacementCost) && Objects.equals(rating, film.rating) && Objects.equals(specialFeatures, film.specialFeatures) && Objects.equals(lastUpdate, film.lastUpdate) && Objects.equals(language, film.language) && Objects.equals(languageByLanguageId, film.languageByLanguageId) && Objects.equals(languageByOriginalLanguageId, film.languageByOriginalLanguageId) && Objects.equals(categories, film.categories) && Objects.equals(originalLanguage, film.originalLanguage) && Objects.equals(actors, film.actors) && Objects.equals(inventories, film.inventories);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getFilmId(), getTitle(), getDescription(), getReleaseYear(), getLanguageId(), getOriginalLanguageId(), getRentalDuration(), getRentalRate(), getLength(), getReplacementCost(), getRating(), getSpecialFeatures(), getLastUpdate(), language, languageByLanguageId, languageByOriginalLanguageId, getCategories(), getOriginalLanguage(), getActors(), getInventories());
+        return Objects.hash(filmId, title, description, releaseYear, languageId, originalLanguageId, rentalDuration, rentalRate, length, replacementCost, rating, specialFeatures, lastUpdate, language, languageByLanguageId, languageByOriginalLanguageId, categories, originalLanguage, actors, inventories);
     }
 
     @Override

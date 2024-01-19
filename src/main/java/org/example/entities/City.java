@@ -69,20 +69,23 @@ public class City {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof City city1)) return false;
-        return Objects.equals(getCityId(), city1.getCityId()) && Objects.equals(getCity(), city1.getCity()) && Objects.equals(getCountryId(), city1.getCountryId()) && Objects.equals(getLastUpdate(), city1.getLastUpdate()) && Objects.equals(countryByCountryId, city1.countryByCountryId) && Objects.equals(country, city1.country) && Objects.equals(getAddressesByCityId(), city1.getAddressesByCityId());
+        if (o == null || getClass() != o.getClass()) return false;
+        City city1 = (City) o;
+        return Objects.equals(cityId, city1.cityId) && Objects.equals(city, city1.city) && Objects.equals(countryId, city1.countryId) && Objects.equals(lastUpdate, city1.lastUpdate) && Objects.equals(countryByCountryId, city1.countryByCountryId) && Objects.equals(country, city1.country) && Objects.equals(addressesByCityId, city1.addressesByCityId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getCityId(), getCity(), getCountryId(), getLastUpdate(), countryByCountryId, country, getAddressesByCityId());
+        return Objects.hash(cityId, city, countryId, lastUpdate, countryByCountryId, country, addressesByCityId);
     }
-
 
     public Collection<Address> getAddressesByCityId() {
         return addressesByCityId;
     }
 
+    public void setAddressesByCityId(Collection<Address> addressesByCityId) {
+        this.addressesByCityId = addressesByCityId;
+    }
 
     @Override
     public String toString() {

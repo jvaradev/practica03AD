@@ -139,13 +139,14 @@ public class Customer {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Customer customer)) return false;
-        return Objects.equals(getCustomerId(), customer.getCustomerId()) && Objects.equals(getStoreId(), customer.getStoreId()) && Objects.equals(getFirstName(), customer.getFirstName()) && Objects.equals(getLastName(), customer.getLastName()) && Objects.equals(getEmail(), customer.getEmail()) && Objects.equals(getAddressId(), customer.getAddressId()) && Objects.equals(getActive(), customer.getActive()) && Objects.equals(getCreateDate(), customer.getCreateDate()) && Objects.equals(getLastUpdate(), customer.getLastUpdate()) && Objects.equals(store, customer.store) && Objects.equals(getAddressByAddressId(), customer.getAddressByAddressId()) && Objects.equals(getRentals(), customer.getRentals()) && Objects.equals(getStoreByStoreId(), customer.getStoreByStoreId()) && Objects.equals(getPayments(), customer.getPayments());
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return Objects.equals(customerId, customer.customerId) && Objects.equals(storeId, customer.storeId) && Objects.equals(firstName, customer.firstName) && Objects.equals(lastName, customer.lastName) && Objects.equals(email, customer.email) && Objects.equals(addressId, customer.addressId) && Objects.equals(active, customer.active) && Objects.equals(createDate, customer.createDate) && Objects.equals(lastUpdate, customer.lastUpdate) && Objects.equals(store, customer.store) && Objects.equals(addressByAddressId, customer.addressByAddressId) && Objects.equals(rentals, customer.rentals) && Objects.equals(storeByStoreId, customer.storeByStoreId) && Objects.equals(payments, customer.payments);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getCustomerId(), getStoreId(), getFirstName(), getLastName(), getEmail(), getAddressId(), getActive(), getCreateDate(), getLastUpdate(), store, getAddressByAddressId(), getRentals(), getStoreByStoreId(), getPayments());
+        return Objects.hash(customerId, storeId, firstName, lastName, email, addressId, active, createDate, lastUpdate, store, addressByAddressId, rentals, storeByStoreId, payments);
     }
 
     public Address getAddressByAddressId() {

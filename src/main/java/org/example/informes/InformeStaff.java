@@ -28,7 +28,7 @@ public class InformeStaff {
         } while (staffId != 0);
     }
 
-    //Método que muestra los detalles del empleado
+    //Muestra los detalles del trabajador
     public static void showStaffDetails(int staffId) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -57,7 +57,7 @@ public class InformeStaff {
         }
     }
 
-    //Método que muestra la dirección de la tienda
+    //Muestra la dirección de la tienda asociada al trabajador
     public static void showStoreAddress(Short storeId) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -78,7 +78,7 @@ public class InformeStaff {
         }
     }
 
-    //Método que muestra los alquileres que ha hecho el empleado
+    //Muestra los alquileres que ha hecho el trabajador
     public static void showRentals(int staffId) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();

@@ -113,15 +113,17 @@ public class Payment {
         this.lastUpdate = lastUpdate;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Payment payment)) return false;
-        return Objects.equals(getPaymentId(), payment.getPaymentId()) && Objects.equals(getCustomerId(), payment.getCustomerId()) && Objects.equals(getStaffId(), payment.getStaffId()) && Objects.equals(getRentalId(), payment.getRentalId()) && Objects.equals(getAmount(), payment.getAmount()) && Objects.equals(getPaymentDate(), payment.getPaymentDate()) && Objects.equals(getLastUpdate(), payment.getLastUpdate()) && Objects.equals(customerByCustomerId, payment.customerByCustomerId) && Objects.equals(rentalByRentalId, payment.rentalByRentalId) && Objects.equals(customer, payment.customer) && Objects.equals(rental, payment.rental) && Objects.equals(staffByStaffId, payment.staffByStaffId);
+        if (o == null || getClass() != o.getClass()) return false;
+        Payment payment = (Payment) o;
+        return Objects.equals(paymentId, payment.paymentId) && Objects.equals(customerId, payment.customerId) && Objects.equals(staffId, payment.staffId) && Objects.equals(rentalId, payment.rentalId) && Objects.equals(amount, payment.amount) && Objects.equals(paymentDate, payment.paymentDate) && Objects.equals(lastUpdate, payment.lastUpdate) && Objects.equals(customerByCustomerId, payment.customerByCustomerId) && Objects.equals(rentalByRentalId, payment.rentalByRentalId) && Objects.equals(customer, payment.customer) && Objects.equals(rental, payment.rental) && Objects.equals(staffByStaffId, payment.staffByStaffId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getPaymentId(), getCustomerId(), getStaffId(), getRentalId(), getAmount(), getPaymentDate(), getLastUpdate(), customerByCustomerId, rentalByRentalId, customer, rental, staffByStaffId);
+        return Objects.hash(paymentId, customerId, staffId, rentalId, amount, paymentDate, lastUpdate, customerByCustomerId, rentalByRentalId, customer, rental, staffByStaffId);
     }
 }

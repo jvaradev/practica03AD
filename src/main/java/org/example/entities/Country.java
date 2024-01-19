@@ -49,13 +49,14 @@ public class Country {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Country country1)) return false;
-        return Objects.equals(getCountryId(), country1.getCountryId()) && Objects.equals(getCountry(), country1.getCountry()) && Objects.equals(getLastUpdate(), country1.getLastUpdate()) && Objects.equals(getCitiesByCountryId(), country1.getCitiesByCountryId());
+        if (o == null || getClass() != o.getClass()) return false;
+        Country country1 = (Country) o;
+        return Objects.equals(countryId, country1.countryId) && Objects.equals(country, country1.country) && Objects.equals(lastUpdate, country1.lastUpdate) && Objects.equals(citiesByCountryId, country1.citiesByCountryId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getCountryId(), getCountry(), getLastUpdate(), getCitiesByCountryId());
+        return Objects.hash(countryId, country, lastUpdate, citiesByCountryId);
     }
 
     public Collection<City> getCitiesByCountryId() {

@@ -82,13 +82,14 @@ public class Store {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Store store)) return false;
-        return Objects.equals(getStoreId(), store.getStoreId()) && Objects.equals(getManagerStaffId(), store.getManagerStaffId()) && Objects.equals(getAddressId(), store.getAddressId()) && Objects.equals(getLastUpdate(), store.getLastUpdate()) && Objects.equals(getInventoriesByStoreId(), store.getInventoriesByStoreId()) && Objects.equals(getStaffByManagerStaffId(), store.getStaffByManagerStaffId()) && Objects.equals(getAddressByAddressId(), store.getAddressByAddressId()) && Objects.equals(employees, store.employees) && Objects.equals(address, store.address) && Objects.equals(managerStaff, store.managerStaff) && Objects.equals(getCustomersByStoreId(), store.getCustomersByStoreId()) && Objects.equals(getStaffByStoreId(), store.getStaffByStoreId());
+        if (o == null || getClass() != o.getClass()) return false;
+        Store store = (Store) o;
+        return Objects.equals(storeId, store.storeId) && Objects.equals(managerStaffId, store.managerStaffId) && Objects.equals(addressId, store.addressId) && Objects.equals(lastUpdate, store.lastUpdate) && Objects.equals(inventoriesByStoreId, store.inventoriesByStoreId) && Objects.equals(staffByManagerStaffId, store.staffByManagerStaffId) && Objects.equals(addressByAddressId, store.addressByAddressId) && Objects.equals(employees, store.employees) && Objects.equals(address, store.address) && Objects.equals(managerStaff, store.managerStaff) && Objects.equals(customersByStoreId, store.customersByStoreId) && Objects.equals(staffByStoreId, store.staffByStoreId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getStoreId(), getManagerStaffId(), getAddressId(), getLastUpdate(), getInventoriesByStoreId(), getStaffByManagerStaffId(), getAddressByAddressId(), employees, address, managerStaff, getCustomersByStoreId(), getStaffByStoreId());
+        return Objects.hash(storeId, managerStaffId, addressId, lastUpdate, inventoriesByStoreId, staffByManagerStaffId, addressByAddressId, employees, address, managerStaff, customersByStoreId, staffByStoreId);
     }
 
     public Collection<Customer> getCustomersByStoreId() {

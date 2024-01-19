@@ -83,13 +83,14 @@ public class Inventory {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Inventory inventory)) return false;
-        return Objects.equals(getInventoryId(), inventory.getInventoryId()) && Objects.equals(getFilmId(), inventory.getFilmId()) && Objects.equals(getStoreId(), inventory.getStoreId()) && Objects.equals(getLastUpdate(), inventory.getLastUpdate()) && Objects.equals(getFilmByFilmId(), inventory.getFilmByFilmId()) && Objects.equals(storeByStoreId, inventory.storeByStoreId) && Objects.equals(getFilm(), inventory.getFilm()) && Objects.equals(store, inventory.store) && Objects.equals(getRentals(), inventory.getRentals());
+        if (o == null || getClass() != o.getClass()) return false;
+        Inventory inventory = (Inventory) o;
+        return Objects.equals(inventoryId, inventory.inventoryId) && Objects.equals(filmId, inventory.filmId) && Objects.equals(storeId, inventory.storeId) && Objects.equals(lastUpdate, inventory.lastUpdate) && Objects.equals(filmByFilmId, inventory.filmByFilmId) && Objects.equals(storeByStoreId, inventory.storeByStoreId) && Objects.equals(film, inventory.film) && Objects.equals(store, inventory.store) && Objects.equals(rentals, inventory.rentals);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getInventoryId(), getFilmId(), getStoreId(), getLastUpdate(), getFilmByFilmId(), storeByStoreId, getFilm(), store, getRentals());
+        return Objects.hash(inventoryId, filmId, storeId, lastUpdate, filmByFilmId, storeByStoreId, film, store, rentals);
     }
 
     public Film getFilmByFilmId() {

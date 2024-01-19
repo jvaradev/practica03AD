@@ -51,13 +51,14 @@ public class Language {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Language language)) return false;
-        return Objects.equals(getLanguageId(), language.getLanguageId()) && Objects.equals(getName(), language.getName()) && Objects.equals(getLastUpdate(), language.getLastUpdate()) && Objects.equals(getFilmsByLanguageId(), language.getFilmsByLanguageId()) && Objects.equals(getFilmsByLanguageId_0(), language.getFilmsByLanguageId_0());
+        if (o == null || getClass() != o.getClass()) return false;
+        Language language = (Language) o;
+        return Objects.equals(languageId, language.languageId) && Objects.equals(name, language.name) && Objects.equals(lastUpdate, language.lastUpdate) && Objects.equals(filmsByLanguageId, language.filmsByLanguageId) && Objects.equals(filmsByLanguageId_0, language.filmsByLanguageId_0);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getLanguageId(), getName(), getLastUpdate(), getFilmsByLanguageId(), getFilmsByLanguageId_0());
+        return Objects.hash(languageId, name, lastUpdate, filmsByLanguageId, filmsByLanguageId_0);
     }
 
     public Collection<Film> getFilmsByLanguageId() {

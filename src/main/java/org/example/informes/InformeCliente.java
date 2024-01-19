@@ -35,7 +35,7 @@ public class InformeCliente {
         } while (idCustomer != 0);
     }
 
-    //Método que muestra el nombre, apellido, email y dirección del cliente
+    //Método que muestra los datos del cliente
     public static void showCustomerDetails(int customerId) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -65,7 +65,7 @@ public class InformeCliente {
         }
     }
 
-    //Método que muestra la tienda asociada al cliente
+    //Muestra los dirección a la tienda que está asociada el cliente
     public static void showStoreDetails(int customerId) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -94,7 +94,7 @@ public class InformeCliente {
         }
     }
 
-    //Método que muestra los alquileres realizados por el cliente
+    //Muestra los detalles d elos alquileres que ha realizado el cliente
     public static void showRentalsDetails(int customerId){
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -113,7 +113,7 @@ public class InformeCliente {
         }
     }
 
-    //Método que muestra los pagos realizados por el cliente
+    //Muestra los pagos que ha realizado el cliente
     public static void showPaymentsDetails(int customerId) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
